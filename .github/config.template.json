@@ -1,0 +1,17 @@
+{
+    "github": {
+        "branch": "YOUR_BASE_BRANCH",
+        "repo": "YOUR_REPOSITORY_NAME",
+        "reviewers": [],
+        "organizationUrl": "https://github.com/YOUR_ORGANIZATION/"
+    },
+    "jira":{
+        "baseurl": "https://YOUR_JIRA_INSTANCE.atlassian.net",
+        "projectKey": "YOUR_JIRA_PROJECT_KEY",
+        "apiToken": "{$env.JIRA_API_TOKEN}"
+    },
+    "agent": {
+        "source": "YOUR_AGENT_SOURCE",
+        "version": "1.0.0"
+    }
+}
