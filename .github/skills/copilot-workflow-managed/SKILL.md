@@ -155,13 +155,23 @@ After presenting the PR URL, review findings, and CI state, use `ask_user` to of
 
 Do not perform any follow-up action until the user chooses one. If auto-merge is selected and the PR later merges, verify the merged state before proceeding.
 
-### 14. Archive the OpenSpec change
+### 14. Ask whether to move the Jira issue to Done
 
-Archive only after the PR is confirmed merged, the implementation is deployed/completed, and every task is checked off. Follow [OpenSpec archive procedure](../../openspec/archive.md), merge spec deltas into the master specifications without duplicates, and move the change folder to the archive location. Do not archive an open/unmerged PR, an unverified deployment, or an incomplete task list.
+Before asking, check the pull request's current state using the available GitHub tools. Report the verified state to the user:
 
-### 14. Switch to the configured base branch
+- If the PR is merged, say that it is merged and ask whether they want to move the Jira issue to **Done**.
+- If the PR is still open, pending review/checks, or otherwise not merged, say that it is still pending and ask whether they nevertheless want to move the issue to **Done**.
+- If the PR state cannot be verified, explain that and ask whether they still want to request the transition.
 
-After archiving the OpenSpec change switch to the configured base branch, user `ask_user` to offer:
+Use `ask_user` to offer **Move issue to Done** or **Skip**. If the user chooses **Skip**, leave the Jira status unchanged and continue to Step 15. If they choose to move it, follow [jira-transition-issue](../jira-transition-issue/SKILL.md) with the exact target status **Done**; verify the transition and report the resulting status. If the transition is unavailable or fails, report the reason and continue to Step 15 without claiming it was changed.
+
+### 15. Archive the OpenSpec change
+
+Archive only after the PR is confirmed merged, the implementation is deployed/completed, and every task is checked off. Follow [OpenSpec archive procedure](../../openspec/archive.md), merge spec deltas into the master specifications without duplicates, and move the change folder to the archive location. Do not archive an open/unmerged PR, an unverified deployment, or an incomplete task list. If these conditions are not met, report why the change was not archived and continue to Step 16.
+
+### 16. Switch to the configured base branch
+
+After the Step 15 archive attempt, use `ask_user` to offer switching to the configured base branch:
 
 1. If **Yes** — switch only if the local worktree is clean, then fetch and pull new changes; otherwise leave the branch unchanged and explain why.
 2. If **No** — leave the branch unchanged.
@@ -188,6 +198,7 @@ When the workflow finishes, summarize the verified outcomes in a table:
 | Commit | | Hash and Conventional Commit subject |
 | Pull request | | URL, reviewers, CI/review state |
 | Merge | | Merged, auto-merge pending, or not requested |
+| Jira status | | Verified final status or unchanged |
 | Switch to base branch | | Switched or not switched |
 
 Mark incomplete stages as pending or blocked; never imply the entire workflow completed unless each required stage was verified.
